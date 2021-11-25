@@ -6,7 +6,7 @@ import * as bodyParser from "body-parser";
 import cors from "cors";
 import { initialRoutes } from './Routes/index.Routes'
 
-const port: number = 3005
+const port: number = 3000
 
 class App {
     private server: http.Server
