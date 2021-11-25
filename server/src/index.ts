@@ -5,6 +5,7 @@ import socketIO from 'socket.io'
 import * as bodyParser from "body-parser";
 import cors from "cors";
 import { initialRoutes } from './Routes/index.Routes'
+var jwt = require('jsonwebtoken');
 
 const port: number = 3000
 
@@ -39,6 +40,9 @@ class App {
    }
 private socketConfig(): void {
    let interval: any
+
+   // server
+
           this.io.on('connection', (socket: socketIO.Socket) => {
             console.log('a user connected : ' + socket.id)
             if (interval) {
@@ -50,11 +54,26 @@ private socketConfig(): void {
                clearInterval(interval);
             });
         })
-   }
 
+}  
+
+ public isValidJwt(token:any){
+    //const verified = jwt.verify(token, 'secret');
+     const verified= jwt.verify(token, 'secret',(err:any, decoded:any)=>{
+          if (err){
+              console.log("errr",err);
+              return false;
+          }else{
+              console.log(decoded);
+              return true;
+          }
+      });
+      return verified
+   }
    private getApiAndEmit(socket: any): void {
-      console.log("getApiAndEmit called")
-      const response = new Date();
+      const token = socket.handshake.auth.token;
+      const response = this.isValidJwt(token)
+      console.log("reponse",response)
       // Emitting a new message. Will be consumed by the client
       socket.emit("FromAPI", response);
    }
