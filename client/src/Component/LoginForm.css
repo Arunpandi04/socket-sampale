@@ -1,0 +1,15 @@
+.login-form {
+    max-width: 300px;
+  }
+  .login-form-forgot {
+    float: right;
+  }
+  .submit{
+    display: flex;
+    justify-content:space-around;
+  }
+  .header{
+    position:sticky;
+    top: 0;
+    z-index:9;
+    }
