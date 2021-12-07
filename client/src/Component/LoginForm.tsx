@@ -14,6 +14,7 @@ export interface userForm{
   age: string
   key?: string
 }
+let data= [{key:"1",name:"arun",address:"Chennai",phoneNumber:"344536565",education:"B.E",age:"23"},{key:"2",name:"pandi",address:"Chennai",phoneNumber:"2134326536",education:"B.E",age:"25"}]
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<userForm>({ 
@@ -85,7 +86,7 @@ const LoginForm = () => {
       title:'Edit',
       dataIndex: 'key',
       render :(_,data:any)=>{
-       return (<Button type="primary" onClick={()=>showEditDrawer(data.key)}>
+       return (<Button id="btn" type="primary" onClick={()=>showEditDrawer(data?.key)}>
         Edit
         </Button>)
       }
@@ -118,19 +119,19 @@ const LoginForm = () => {
   };
   
  const  showEditDrawer = (id:string) => {
-  const data: any = localStorage.getItem("data")
-  const value : any = JSON.parse(data)
+  // const data: any = localStorage.getItem("data")
 
-  const res = value.filter((e:userForm)=> e.key === id)
+console.log("id---->",id)
+  const res = data.filter((e:any)=> e.key === id)
   setFormData({
-    name: res[0].name ,
-    address: res[0].address,
-    phoneNumber: res[0].phoneNumber,
-    education: res[0].education,
-    age: res[0].age,
-    key: res[0].key
+    name: res[0]?.name ,
+    address: res[0]?.address,
+    phoneNumber: res[0]?.phoneNumber,
+    education: res[0]?.education,
+    age: res[0]?.age,
+    key: res[0]?.key
   })
-  setStateEdit(res[0].key)
+  setStateEdit(res[0]?.key)
    setRow(true)
    setState({
     visible: true,
@@ -207,6 +208,7 @@ const LoginForm = () => {
   };
 
 
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
@@ -221,7 +223,7 @@ const LoginForm = () => {
     <div>
       <div className="header" style={{paddingTop:"10px"}}
      >
-       <Button className="form" type="primary" onClick={showDrawer}>
+       <Button id ="newbtn"className="form" type="primary" onClick={showDrawer}>
           <PlusOutlined /> New account
           </Button>
           </div>
@@ -239,7 +241,7 @@ const LoginForm = () => {
                 textAlign: 'right',
               }}
             >
-              <Button onClick={()=>onClose()} style={{ marginRight: 8 }}>
+              <Button id="cancel"onClick={()=>onClose()} style={{ marginRight: 8 }}>
                 Cancel
               </Button>
             </div>
@@ -248,128 +250,10 @@ const LoginForm = () => {
         {error && <Alert style={{width:"19rem"}}message={error} type="error" />}
         <CustomForm onCreate={onFinish} handleChange={handleChange} onEdit={onFinishEdit} isEdit={row} data={formData} id={formData.key}/>
         </Drawer>
-      <div>
-   {/* <Drawer
-          title="Edit Details"
-          width={720}
-          onClose={onCloseEdit}
-          visible={stateEdit.visible}
-          bodyStyle={{ paddingBottom: 80 }}
-          footer={
-            <div
-              style={{
-                textAlign: 'right',
-              }}
-            >
-              <Button onClick={onCloseEdit} style={{ marginRight: 8 }}>
-                Cancel
-              </Button>
-            </div>
-          }
-        >
-        <Form
-          name="normal_login"
-          className="login-form"
-            onFinish={onFinishEdit}
-            initialValues={{
-              remember: true,
-          }}
-        >
-          <Form.Item
-            name="name"
-            initialValue={formData.name}
-            rules={[
-              {
-                required: true,
-                message: "Please input your Username!",
-              },
-            ]}
-          >
-            <Input
-              placeholder="Name"
-                onChange={(e: any) => handleChange(e)}
-            />
-          </Form.Item>
-          <Form.Item
-            name="address"
-            initialValue={formData.address}
-            rules={[
-              {
-                required: true,
-                message: "Please input your address!",
-              },
-            ]}
-          >
-            <Input
-              placeholder="Address"
-                onChange={(e: any) => handleChange(e)}
-                value={formData.address}
-            />
-          </Form.Item>
-          <Form.Item
-            name="phoneNumber"
-            initialValue={formData.phoneNumber}
-            rules={[
-              {
-                required: true,
-                message: "Please input your phoneNumber!",
-              },
-            ]}
-          >
-            <Input
-              placeholder="PhoneNumber"
-                onChange={(e: any) => handleChange(e)}
-              />
-          </Form.Item>
-          <Form.Item
-            name="education"
-            initialValue={formData.education}
-            rules={[
-              {
-                required: true,
-                message: "Please input your education!",
-              },
-            ]}
-          >
-            <Input
-              placeholder="Education"
-                onChange={(e: any) => handleChange(e)}
-                value={formData.education}
-            />
-          </Form.Item>
-          <Form.Item
-            name="age"
-            initialValue={formData.age}
-            rules={[
-              {
-                required: true,
-                message: "Please input your Age!",
-              },
-            ]}
-          >
-              <Input
-                name="age"
-              placeholder="Age"
-                onChange={(e: any) => handleChange(e)}
-                value={formData.age}
-            />
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Drawer> */}
-      
+      <div>      
       <Table
         columns={columns}
-        dataSource={value[0]}
+        dataSource={data}
         onChange={onChange} 
         />
       </div>
