@@ -149,18 +149,18 @@ console.log("id---->",id)
   },[load,formData]);
 
 
-  const onFinish = (values) => {
-    values.key = uuidv4()
-    console.log("Received values of form: ", values);
+  const onFinish = () => {
+    formData.key = uuidv4()
+    console.log("Received values of form: ", formData);
     const data: any = localStorage.getItem("data")
     let value :any =[]
     if (localStorage.getItem("data") === null) {
       console.log("pass");
-      value.push(values)
+      value.push(formData)
     }
     else {
       value =JSON.parse(data)
-    value.push(values)
+    value.push(formData)
     }
       localStorage.setItem("data", JSON.stringify(value))
     setFormData({name: "" ,
@@ -176,8 +176,8 @@ console.log("id---->",id)
   };
 
 
-  const onFinishEdit = (values) => {
-    console.log("Received values of form:", values);
+  const onFinishEdit = () => {
+    console.log("Received values of form:");
     setRow(false)
     setState({
       visible: false,
@@ -188,11 +188,11 @@ console.log("id---->",id)
      if (value.length>0) {
      value.map((e:any)=>{
         if(e.key === stateEdit){
-          e.name=values.name
-          e.address= values.address
-    e.phoneNumber= values.phoneNumber
-    e.education= values.education
-    e.age= values.age
+          e.name=formData.name
+          e.address= formData.address
+    e.phoneNumber= formData.phoneNumber
+    e.education= formData.education
+    e.age= formData.age
         }
         return true
       })
@@ -211,11 +211,12 @@ console.log("id---->",id)
   
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log("onchange--->")
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
   }
 
-  function onChange(pagination, filters, sorter, extra) {
-    console.log('params', pagination, filters, sorter, extra);
+  function onChange( filters, sorter) {
+    console.log('params', filters, sorter);
     setFilter(filters)
   }
 

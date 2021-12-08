@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import {  Form, Input, Button}from "antd";
 import "antd/dist/antd.css";
 import "./LoginForm.css";
@@ -22,7 +22,7 @@ const CustomForm =(props: Props)=>{
     form.setFieldsValue(data)
    }, [form, data])
 
-   
+   console.log("isEdit",isEdit)
     return(
         <>
         <Form
@@ -121,15 +121,14 @@ const CustomForm =(props: Props)=>{
               onChange={(e: any) => handleChange(e)}
             />
           </Form.Item>
-          <Form.Item>
             <Button
+              data-testid="form"
               type="primary"
               htmlType="submit"
               className="login-form-button"
             >
               submit
             </Button>
-          </Form.Item>
         </Form>
      
         </>
