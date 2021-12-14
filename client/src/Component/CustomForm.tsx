@@ -5,11 +5,11 @@ import "./LoginForm.css";
 import {userForm} from './LoginForm'
 
 interface Props{
-  onCreate: (data:any)=>void
-  onEdit: (data:any)=>void
+  onCreate: ()=>void
+  onEdit: ()=>void
   handleChange: (e:any)=>void
   isEdit: Boolean
-  data:userForm
+  data?:userForm
   id?: string
 }
 
@@ -64,7 +64,7 @@ const CustomForm =(props: Props)=>{
             ]}
           >
             <Input
-            value={data.address}
+
             name="address"
               placeholder="Address"
               onChange={(e: any) => handleChange(e)}
@@ -122,7 +122,7 @@ const CustomForm =(props: Props)=>{
             />
           </Form.Item>
             <Button
-              data-testid="form"
+              id="form"
               type="primary"
               htmlType="submit"
               className="login-form-button"

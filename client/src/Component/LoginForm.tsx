@@ -141,6 +141,7 @@ console.log("id---->",id)
 
   
   useEffect(() => {
+    console.log("useEffect----->")
     let datavalue: any = localStorage.getItem("data")
     let a : any = [];
     a.push(JSON.parse(datavalue))
@@ -150,8 +151,8 @@ console.log("id---->",id)
 
 
   const onFinish = () => {
+    console.log("Received values of form")
     formData.key = uuidv4()
-    console.log("Received values of form: ", formData);
     const data: any = localStorage.getItem("data")
     let value :any =[]
     if (localStorage.getItem("data") === null) {
@@ -222,8 +223,7 @@ console.log("id---->",id)
 
   return (
     <div>
-      <div className="header" style={{paddingTop:"10px"}}
-     >
+      <div className="header" style={{paddingTop:"10px"}}>
        <Button id ="newbtn"className="form" type="primary" onClick={showDrawer}>
           <PlusOutlined /> New account
           </Button>
@@ -249,7 +249,9 @@ console.log("id---->",id)
           }
         >
         {error && <Alert style={{width:"19rem"}}message={error} type="error" />}
-        <CustomForm onCreate={onFinish} handleChange={handleChange} onEdit={onFinishEdit} isEdit={row} data={formData} id={formData.key}/>
+        <div id="button">
+        <CustomForm  onCreate={()=>onFinish()} handleChange={handleChange} onEdit={()=>onFinishEdit()} isEdit={row} data={formData} id={formData.key}/>
+        </div>
         </Drawer>
       <div>      
       <Table
